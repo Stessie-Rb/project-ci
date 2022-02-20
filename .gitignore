@@ -1,0 +1,4 @@
+.env
+acme.json
+traefik_dynamic.toml
+traefik.toml
