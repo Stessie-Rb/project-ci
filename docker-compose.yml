@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  #---Reverse proxy------------------------------------------------------------------------------------------------------------------------------------------
+  traefik:
+    image: traefik:v2.5
+    container_name: traefik
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      # Web
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Map the static, dynamic configuration and certificates into the container
+      - ./config/static.yml:/etc/traefik/traefik.yml:ro
+      - ./config/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./certs:/etc/certs:ro
+    networks:
+      - web
+
+networks:
+  web:
+    external: true

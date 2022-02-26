@@ -1,0 +1,14 @@
+http:
+  routers:
+    traefik:
+      rule: "Host(`traefik.workflow_ci.localhost`)"
+      service: "api@internal"
+      tls:
+        domains:
+          - main: "workflow_ci.localhost"
+            sans:
+              - "*.workflow_ci.localhost"
+tls:
+  certificates:
+    - certFile: "/etc/certs/local-cert.pem"
+      keyFile: "/etc/certs/local-key.pem"
